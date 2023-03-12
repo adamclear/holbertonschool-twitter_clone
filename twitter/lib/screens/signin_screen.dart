@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:twitter/widgets/flat_button.dart';
 import 'package:twitter/widgets/entry_field.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:twitter/screens/signup_screen.dart';
+import 'package:twitter/screens/forgot_password_screen.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -17,6 +18,13 @@ class SignInState extends State<SignIn> {
   final TextEditingController _passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -26,6 +34,7 @@ class SignInState extends State<SignIn> {
           'Sign In',
           style: TextStyle(
             color: Colors.black,
+            fontWeight: FontWeight.bold
           ),
         ),
       ),
@@ -45,35 +54,51 @@ class SignInState extends State<SignIn> {
                   controller: _passwordController,
                   isPassword: true,
                 ),
+                const SizedBox(height: 20),
                 CustomFlatButton(
                   label: 'Submit',
                   onPressed: () => {
                     print('Button Pressed!')
                   },
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
+                const SizedBox(height: 80),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUp()
+                      )
+                    );
+                  },
+                  child: const Text(
+                  'Sign Up',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
                     ),
-                  ],
+                  ),
                 ),
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => const SignUp()
-                //       )
-                //     );
-                //   },
-                // ),
+                const SizedBox(height: 30),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ForgotPassword()
+                      )
+                    );
+                  },
+                  child: const Text(
+                  'Forgot Password?',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
